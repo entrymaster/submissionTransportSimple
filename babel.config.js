@@ -19,5 +19,6 @@ module.exports = {
       },
       '@babel/plugin-syntax-dynamic-import',
     ],
+    'react-native-reanimated/plugin',
   ]
 };

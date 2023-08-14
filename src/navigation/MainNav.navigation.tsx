@@ -3,6 +3,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Dashboard from '../screens/Dashboard.screen';
 import Explainer from '../screens/Explainer.screen';
 import SignUp from 'screens/SignUp.screen';
+import NewTask from 'screens/NewTask.screen';
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +24,8 @@ const AuthStack = () => {
       initialRouteName="SignUp">
       <Stack.Screen name="Explainer" component={Explainer} />
       <Stack.Screen name="SignUp" component={SignUp} />
+      <Stack.Screen name="Dashboard" component={Dashboard} />
+      <Stack.Screen name="NewTask" component={NewTask} />
     </Stack.Navigator>
   );
 };

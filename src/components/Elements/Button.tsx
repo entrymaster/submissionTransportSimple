@@ -9,23 +9,34 @@ import {
 } from 'react-native';
 import React from 'react';
 import Label from './Label';
-import {scale} from 'theme/responsiveSize';
-import {COLORS} from 'theme/theme';
+import {scale, screenWidth} from 'theme/responsiveSize';
+import {COLORS, FONT_FAMILY} from 'theme/theme';
 
 type Props = {
-  type: 'large' | 'medium' | 'small';
+  type: 'large' | 'medium' | 'small' | 'x_small';
   text: string;
   isLoading?: boolean;
   disabled?: boolean;
+  color?: string;
   style?: StyleProp<ViewStyle>;
+  onPress?: () => void;
 };
 
-const Button: React.FC<Props> = ({type, text, disabled, isLoading, style}) => {
+const Button: React.FC<Props> = ({
+  type,
+  text,
+  onPress,
+  color = COLORS.primary,
+  disabled,
+  isLoading,
+  style,
+}) => {
   const TypeSwitch = () => {
     switch (type) {
       case 'large':
         return (
           <TouchableOpacity
+            onPress={onPress}
             disabled={disabled || isLoading}
             style={[styles.btnLarge, style]}>
             {isLoading ? (
@@ -35,7 +46,49 @@ const Button: React.FC<Props> = ({type, text, disabled, isLoading, style}) => {
             )}
           </TouchableOpacity>
         );
-
+      case 'medium':
+        return (
+          <TouchableOpacity
+            onPress={onPress}
+            disabled={disabled || isLoading}
+            style={[styles.btnMedium, style]}>
+            {isLoading ? (
+              <ActivityIndicator size="large" color="white" />
+            ) : (
+              <Label content={text} style={styles.mediumText} />
+            )}
+          </TouchableOpacity>
+        );
+        case 'small':
+        return (
+          <TouchableOpacity
+            onPress={onPress}
+            disabled={disabled || isLoading}
+            style={[styles.btnSmall, style]}>
+            {isLoading ? (
+              <ActivityIndicator size="large" color="white" />
+            ) : (
+              <Label content={text} style={styles.mediumText} />
+            )}
+          </TouchableOpacity>
+        );
+        case 'x_small':
+        return (
+          <TouchableOpacity
+            onPress={onPress}
+            disabled={disabled || isLoading}
+            style={[styles.btnXSmall,
+              {
+                backgroundColor: color,
+              }
+            , style]}>
+            {isLoading ? (
+              <ActivityIndicator size="large" color="white" />
+            ) : (
+              <Label content={text} style={styles.xSmallText} />
+            )}
+          </TouchableOpacity>
+        );
       default:
         break;
     }
@@ -53,5 +106,41 @@ const styles = StyleSheet.create({
     borderRadius: 36,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  btnMedium: {
+    backgroundColor: COLORS.red,
+    width: screenWidth - scale(60),
+    height: scale(52),
+    borderRadius: 36,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+  },
+  mediumText: {
+    fontFamily: FONT_FAMILY.wt_600,
+    color: COLORS.primaryText,
+    fontSize: scale(27),
+  },
+  btnSmall: {
+    backgroundColor: COLORS.red,
+    width: scale(215),
+    height: scale(52),
+    borderRadius: 36,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+  },
+  btnXSmall: {
+    width: scale(125),
+    height: scale(32),
+    borderRadius: 36,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+  },
+  xSmallText: {
+    fontFamily: FONT_FAMILY.wt_600,
+    color: COLORS.primaryText,
+    fontSize: scale(16),
   },
 });

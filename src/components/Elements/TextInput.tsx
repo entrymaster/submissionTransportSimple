@@ -1,37 +1,47 @@
-import { StyleSheet, TextInput as CustomInput, } from 'react-native'
-import React from 'react'
-import { scale } from 'theme/responsiveSize'
-import Label from './Label'
+import {StyleSheet, TextInput as CustomInput, View} from 'react-native';
+import React from 'react';
+import {scale, scaleText} from 'theme/responsiveSize';
+import Label from './Label';
+import {COLORS, FONT_FAMILY} from 'theme/theme';
 
 type Props = {
+  title: string;
+};
 
-const TextInput: React.FC = () => {
+const TextInput: React.FC<Props> = ({title}) => {
   return (
     <View>
-      <Label 
-    <CustomInput
+      <Label
+        content={title}
+        style={{
+          fontFamily: FONT_FAMILY.wt_700,
+          fontSize: scale(16),
+          color: COLORS.inputLabel,
+        }}
+      />
+      <CustomInput
         style={styles.input}
         placeholder="Email"
-        placeholderTextColor="#fff"
+        placeholderTextColor={COLORS.placeholderColor}
         keyboardType="email-address"
         autoCapitalize="none"
         autoCorrect={false}
         returnKeyType="next"
-    />
+      />
     </View>
-  )
-}
+  );
+};
 
-export default TextInput
+export default TextInput;
 
 const styles = StyleSheet.create({
-    input: {
-        height: 40,
-        width: scale(275),
-        backgroundColor: 'rgba(255,255,255,0.2)',
-        marginBottom: 20,
-        color: '#fff',
-        paddingHorizontal: 10,
-        borderRadius: 20,
-    },
-})
+  input: {
+    height: scale(55),
+    width: scale(260),
+    backgroundColor: '#EAF0FF',
+    marginVertical: scale(24),
+    color: COLORS.primary_shade1,
+    paddingHorizontal: scale(24),
+    borderRadius: 30,
+  },
+});
